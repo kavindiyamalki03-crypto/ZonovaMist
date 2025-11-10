@@ -6,6 +6,7 @@ import '../../../core/api/api_service.dart';
 import '../../../shared/widgets/common_image_manager.dart';
 import 'add_room_screen.dart';
 import '../edit_room_screen.dart';
+import '../room_rate_page.dart'; //  NEW IMPORT
 
 class RoomsScreen extends ConsumerStatefulWidget {
   const RoomsScreen({super.key});
@@ -73,7 +74,21 @@ class _RoomsScreenState extends ConsumerState<RoomsScreen> {
     final roomsAsync = ref.watch(roomsProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Rooms')),
+      appBar: AppBar(
+        title: const Text('Rooms'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.attach_money), // 💲 icon
+            tooltip: 'Room Rates',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const RoomRatePage()),
+              );
+            },
+          ),
+        ],
+      ),
       body: roomsAsync.when(
         data: (rooms) {
           if (rooms.isEmpty) {
